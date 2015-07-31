@@ -1,0 +1,22 @@
+node_modules
+app_new
+properties.conf
+extra_stuff
+log
+npm-debug.log
+install.bat
+license.json
+.DS_store
+settings/properties.conf
+settings/properties2.conf
+settings/properties - Copy.conf
+/coverage
+*.tap
+test-reports.xml
+app_new
+real.cert.crt
+real.cert.key
+t.xml
+public/dashboard/lib/.module-cache/9b7655aa66b930cdfd5d2b545f128e5d6118de12.js
+settings/properties_mainnet.conf
+settings/properties_testnet.conf
