@@ -1,4 +1,3 @@
-var express = require('express')
 var Colu = require('colu')
 var jf = require('jsonfile')
 var express = require('express')
@@ -8,20 +7,16 @@ var seed = '352a5640333f555977777c3f5e6e307d4f36283a3d205640334e25572f'
 
 var db = jf.readFileSync(__dirname + '/' + dbFileName)
 var app = express()
+
 var colu = new Colu({
   network: 'testnet',
   privateSeed: seed
 })
 
 app.use(bodyParser.json())         // to support JSON-encoded bodies
-app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
-  extended: true
-}))
-
-app.set('view engine', 'jade')
 
 app.get('/getTickets', function (req, res, next) {
-  return res.send('tickets', db)
+  return res.send(db)
 })
 
 app.post('/buyTicket', function (req, res, next) {
@@ -69,8 +64,8 @@ app.post('/addTickets', function (req, res, next) {
   })
 })
 
-colu.init()
-
 colu.on('connect', function () {
   app.listen(8080)
 })
+
+colu.init()
