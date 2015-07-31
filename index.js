@@ -3,17 +3,16 @@ var jf = require('jsonfile')
 var express = require('express')
 var bodyParser = require('body-parser')
 var dbFileName = 'db.json'
-var seed = '352a5640333f555977777c3f5e6e307d4f36283a3d205640334e25572f'
 
 var db = jf.readFileSync(__dirname + '/' + dbFileName)
 var app = express()
 
 var colu = new Colu({
   network: 'testnet',
-  privateSeed: seed
+  privateSeed: '352a5640333f555977777c3f5e6e307d4f36283a3d205640334e25572f'
 })
 
-app.use(bodyParser.json())         // to support JSON-encoded bodies
+app.use(bodyParser.json())
 
 app.get('/getTickets', function (req, res, next) {
   return res.send(db)
@@ -47,7 +46,9 @@ app.post('/addTickets', function (req, res, next) {
   var ticketName = req.body.ticketName
   var amount = req.body.amount
   var settings = {
-    'asset_name': ticketName,
+    metadata: {
+     'assetName': ticketName
+    },
     'amount': amount
   }
   colu.issueAsset(settings, function (err, result) {
@@ -65,7 +66,9 @@ app.post('/addTickets', function (req, res, next) {
 })
 
 colu.on('connect', function () {
-  app.listen(8080)
+  app.listen(8080, function () {
+    console.log('server started')
+  })
 })
 
 colu.init()
